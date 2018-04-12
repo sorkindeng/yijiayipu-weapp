@@ -1,0 +1,13 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-article">
+            <view class="weui-article__h1">{{name}} 姓</view>
+            <view class="weui-article__section">
+              <view class="weui-article__h3">{{remark}}</view>
+              <view wx:for="{{ptext}}" wx:key="unique" class="weui-article__p">
+                  {{item}}
+              </view>
+            </view>
+        </view>
+    </view>
+</view>

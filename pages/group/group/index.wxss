@@ -1,0 +1,22 @@
+.group-panel{
+  padding:10px 10px 0px;
+}
+
+.group-panel image{
+  margin-right: 5px;
+  width:40px; 
+  height: 40px;
+}
+.group-panel button{
+  border-radius: 30rpx;
+  border: 3rpx solid #3688ff;
+  background: transparent;
+  color: #3688ff;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+  padding: 6rpx 15rpx;
+  line-height: 1rem;
+}
+.font14{
+  font-size: 14px;
+}

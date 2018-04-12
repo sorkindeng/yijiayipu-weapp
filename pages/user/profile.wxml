@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">用户名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input font12" id="username" value="{{user.username}}" disabled="true" bindinput="updateUsername"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">性别</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindGenderChange" value="{{gender}}" range="{{array}}">
+            <view class="weui-input">{{gender}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">出生日期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{birthday}}" start="1900-01-01" end="2019-09-01" bindchange="bindBirthdayChange">
+            <view class="weui-input">{{birthday}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__tips">
+      <text wx:if="{{error}}" class="error">{{error}}</text>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="save">更新</button>
+    </view>
+  </view>
+  <view class="weui-cells__tips">
+    <text class="hint">通过小程序登录的用户会自动生成一个用户名</text>
+  </view>
+</view>

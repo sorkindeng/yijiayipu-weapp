@@ -1,0 +1,40 @@
+/* pages/oname/oname.wxss */
+
+.searchbar-result{
+    margin-top: 0;
+    font-size: 14px;
+}
+.searchbar-result:before{
+    display: none;
+}
+.weui-cell{
+    padding: 12px 15px 12px 35px;
+}
+
+.grid-col5{
+  width: 20%;
+  background-color:antiquewhite;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+.bg-color1{
+  background-color:#82a6f5;
+}
+.bg-color2{
+  background-color:#eaf048;
+}
+.bg-color3{
+  background-color:#9ff048;
+}
+.bg-color4{
+  background-color:#2a5200;
+}
+.bg-color5{
+  background-color:#f6d6ff;
+}
+
+
+.name-color{
+  font-size: 20px;
+  color: whitesmoke;
+}

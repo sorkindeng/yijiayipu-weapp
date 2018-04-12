@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="page container">
+    <view class="page__hd">
+        <view class="page__title">首页</view>
+        <view class="page__desc">一加一，靠谱，获取用户唯一标识。</view>
+    </view>
+
+  <view class="page__bd userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" 
+        class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

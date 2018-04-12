@@ -1,0 +1,25 @@
+
+.font12{
+  font-size: 12px;
+}
+
+.member-icon{
+  margin-right: 5px;
+  vertical-align: middle;
+  width:20px; 
+  height: 20px;
+}
+
+.button-save{
+    margin: 0 auto;
+    padding-top: 15px;
+    text-align: right;
+}
+.button-sp-area{
+    margin: 0 auto;
+    padding-top: 15px;
+    width: 60%;
+}
+.mini-btn{
+    margin-right: 5px;
+}

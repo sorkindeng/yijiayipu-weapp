@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="weui-cell">
+          <view class="weui-cell__hd userinfo">
+            <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"/>
+          </view>
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{userInfo.nickName}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-panel__ft" wx:if="{{!hasUserInfo && canIUse}}" >
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd"></view>
+          <view class="weui-cell__ft">
+            <button class="weui-btn mini-btn" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权获取头像 </button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../user/user" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">账户登录</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../user/profile" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">个人信息</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../pay/pay" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">打赏</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">用户名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input font12" id="username" value="{{user.username}}" bindinput="updateUsername"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">新密码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input password class="weui-input" id="password" bindinput="updatePassword"/>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__tips">
+      <text wx:if="{{error}}" class="error">{{error}}</text>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" disabled="{{!(username || password)}}" bindtap="save">更新</button>
+    </view>
+  </view>
+  <view class="weui-cells__tips">
+    <text class="hint">通过小程序登录的用户会自动生成一个用户名</text>
+    <text class="hint">修改用户名与密码后可以在 LeanTodo Web 端 (https://leancloud.github.io/leantodo-vue/) 登录</text>
+  </view>
+</view>

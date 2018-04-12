@@ -1,0 +1,63 @@
+{
+  "pages":[
+    "pages/start/start",
+
+    "pages/group/group/index",
+    "pages/group/group/group",
+    "pages/group/group/groupMember",
+
+    "pages/group/superGroup/index",
+
+    "pages/home/index",
+    "pages/index/index",
+    "pages/oname/oname",
+    "pages/oname/detail/detail",
+    "pages/logs/logs",
+    "pages/user/user",
+    "pages/user/profile",
+    "pages/setting/setting",
+    "pages/pay/pay"
+  ],
+  "window":{
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#118fff",
+    "navigationBarTitleText": "一加一，靠谱",
+    "backgroundColor": "#f8f8f8"
+  },
+  "tabBar": {
+    "color": "#9BABBA",
+    "selectedColor": "#495056",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/group/group/index",
+        "text": "家谱",
+        "iconPath": "static/images/tar-home.png",
+        "selectedIconPath": "static/images/tar-home-on.png"
+      },
+      {
+        "pagePath": "pages/group/superGroup/index",
+        "text": "族谱",
+        "iconPath": "static/images/tar-home.png",
+        "selectedIconPath": "static/images/tar-home-on.png"
+      },
+      {
+        "pagePath": "pages/oname/oname",
+        "text": "姓氏起源",
+        "iconPath": "static/images/tar-topic.png",
+        "selectedIconPath": "static/images/tar-topic-on.png"
+      },
+      {
+        "pagePath": "pages/setting/setting",
+        "text": "设置",
+        "iconPath": "static/images/tar-about.png",
+        "selectedIconPath": "static/images/tar-about-on.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

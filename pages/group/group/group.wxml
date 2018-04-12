@@ -1,0 +1,70 @@
+<view class="page">
+  <view class="page__bd">
+  <form bindsubmit="submit_form">
+    <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">名称</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" value="{{groupName}}" name="groupName"/>
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">姓氏</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" value="{{familyClass}}" name="familyClass"/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">发迹地</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">区域</view>
+          </view>
+          <view class="weui-cell__hd">
+            <picker mode="region" bindchange="bindRegionChange" value="{{region}}" >
+              <view class="weui-input font12"> {{region[0]}}，{{region[1]}}，{{region[2]}} </view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">详细地点</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" value="{{originArea}}" name="originArea"/>
+            </view>
+        </view>
+    </view>
+    <view class="button-save">
+      <button class="weui-btn mini-btn" type="default" size="mini" form-type="submit">保存修改</button>
+    </view>  
+  </form>
+
+    <view class="weui-cells__title">成员列表</view>
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{memberData}}" wx:key="{{id}}">
+        <navigator url="./groupMember?gmid={{item.id}}&roletype={{item.roleType}}&nickname={{item.nickname}}&birthday={{item.birthday}}&groupId={{groupId}}&groupName={{groupName}}" 
+          class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-gmid="{{item.id}}">
+          <view class="weui-cell__hd">
+            <image src="/static/images/home-like.png" class="member-icon"></image>
+          </view>
+          <view class="weui-cell__bd">{{item.nickname}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{item.birthday}}({{item.age}})</view>
+      </navigator>
+      </block>
+    </view>
+
+    <text wx:if="{{error}}" class="error">{{error}}</text>
+    <view class="button-sp-area">
+      <navigator url="./groupMember?groupId={{groupId}}&groupName={{groupName}}">
+        <button class="weui-btn" type="primary">添加成员</button>
+      </navigator>
+    </view>  
+  </view>  
+</view>
