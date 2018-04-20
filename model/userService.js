@@ -4,8 +4,9 @@ const AV = require('../utils/av-weapp-min.js');
 
 const util = require('../utils/util.js')
 
-const Group = AV.Object.extend('yjp_Group');
+const Group = AV.Object.extend('Group');
 const GroupFans = AV.Object.extend('yjp_GroupFans');
+const Subuser = AV.Object.extend('Subuser');
 
 // 检查用户注册(初始化)数据
 ///////////////////////////////////////////////////////////////
@@ -14,12 +15,39 @@ const checkRegData = () => {
     const user = User.current();
     if (!user) return resolve();     //参数检查
 
-    const userGroup = user.get('jgroup');
-    if (userGroup) return resolve();    //老用户  
-    
+    const userGroup = user.get('ownGroup');
+    if (userGroup) {
+      console.log('老用户！')
+      return resolve();    //老用户  
+    }
+
     //新用户，初始化数据:  新建群，加群成员，加关注
-    console.log('新用户，进行初始化数据')
+    console.log('新用户，开始初始化数据...')
     _initUserGroup().then(()=>resolve());
+  })
+}
+
+//受邀加入群， memberId 已经在邀请前生成了，直接加入; 完成user与subuser的绑定，将加入的群记录到用户的joinGroupLists字段中。
+//////////////////////////////////////////////////////////////////////////////////
+const joinGroup = (groupId, memberId)=>{
+  return new Promise((resolve) => {
+    console.log(`userService joinGroup(${groupId}, ${memberId})`);
+    if ((!groupId) || (!memberId)) return resolve();     //参数检查
+
+    const user = User.current();
+    if (!user)   return resolve();     //参数检查
+
+    let group = AV.Object.createWithoutData('Group', groupId);
+    let su = AV.Object.createWithoutData('Subuser', memberId);
+    su.set('user', user);
+    su.save().then((su) => {
+      console.log('userService joinGroup subuser=', su);
+      user.addUnique('joinGroupLists', [groupId]);
+      return user.save();
+    }).then((user) => {
+      console.log('userService joinGroup user=', user);
+      resolve();
+    }).catch(error => console.error(error.message));
   })
 }
 //受邀加入群， groupMemberId 已经在邀请前生成了，直接加入; 将自己的用户链接填入groupfans中，将加入的群记录到用户的groupListsJoin字段中。
@@ -169,7 +197,7 @@ function cloneJp2Zp() {
 }
 //////////////////////////////////////////////
 const _initUserGroup = ()=> {
-  return new Promise((resolve)=>{
+  return new Promise((resolve, reject)=>{
     console.log('initUserGroup');
     const user = User.current();
     const group = new Group();
@@ -178,40 +206,30 @@ const _initUserGroup = ()=> {
     group.set('groupName', groupName);
     group.set('founder', user);
     group.set('manager', user);
-    group.save().then(group => {
-      console.log('group.id', group.id);
-      user.set('jgroup', group);
-      user.set('jgroupName', groupName);
-      user.save();    //异步，不影响后续操作
-      ////////////////
-      const groupFan1 = new GroupFans();
-      groupFan1.set('group', group);
-      groupFan1.set('groupname', groupName);
-      groupFan1.set('roleType', '父亲');
-      groupFan1.set('showName', '父亲');
-      groupFan1.set('showBirthday', '');
-      groupFan1.save().then(ret => {
-        const groupFan2 = new GroupFans();
-        groupFan2.set('group', group);
-        groupFan2.set('groupname', groupName);
-        groupFan2.set('roleType', '母亲');
-        groupFan2.set('showName', '母亲');
-        groupFan2.set('showBirthday', '');
-        groupFan2.set('upGroupFans', ret);
-        groupFan2.save();
 
-        const groupFan3 = new GroupFans();
-        groupFan3.set('group', group);
-        groupFan3.set('groupname', groupName);
-        groupFan3.set('roleType', '自己');
-        groupFan3.set('showName', '自己');
-        groupFan3.set('showBirthday', user.get('birthday'));
-        groupFan3.set('user', user);
-        groupFan3.set('upGroupFans', ret);
-        groupFan3.save();
-        resolve();
-      })
-    }).catch(error => console.error(error.message));
+    let subuser = new Subuser();
+    subuser.set('user', user);
+    let su2 = new Subuser();
+    let su3 = new Subuser();
+
+    AV.Object.saveAll([subuser, su2, su3]).then((users)=>{
+      let members = {};
+      members[subuser.id] = { 'roleType': '自己', 'showName': '自己', 'showBirthday': '' };
+      members[su2.id] = { 'roleType': '父亲', 'showName': '父亲', 'showBirthday': '' };
+      members[su3.id] = { 'roleType': '母亲', 'showName': '母亲', 'showBirthday': '' };
+      group.set('members', members);
+      return group.save();
+    }).then(group => {
+      console.log('group.id', group.id);
+      user.set('ownGroup', group);
+      user.set('ownGroupName', groupName);
+      return user.save();
+    }).then(()=> {
+      resolve();
+    }).catch(error => {
+      console.error(error.message);
+      resolve();
+    })
   })
 }
 //////////////////////////////////////////////
@@ -219,6 +237,7 @@ const _initUserGroup = ()=> {
 module.exports = {
   checkRegData: checkRegData,
   fetchMembers: fetchMembers,
+  joinGroup: joinGroup,
   joinGroupWithgmid: joinGroupWithgmid,
   cloneJp2Zp: cloneJp2Zp,
 }
